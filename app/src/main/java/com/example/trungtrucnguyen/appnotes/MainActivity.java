@@ -15,9 +15,10 @@ import android.content.Intent;
 public class MainActivity extends AppCompatActivity {
     ArrayList<String> notes = new ArrayList<String>();
 
-    public void toSecondActivity(View view) {
+    public void toSecondActivity(View view, String noteString) {
+
         Intent intent = new Intent(MainActivity.this, SecondActivity.class);
-        intent.putExtra("key", "Value of key");
+        intent.putExtra("noteString", noteString);
         MainActivity.this.startActivity(intent);
     }
 
@@ -30,6 +31,9 @@ public class MainActivity extends AppCompatActivity {
 
         notes.add("Note A");
         notes.add("Note B");
+        notes.add("Note C");
+        notes.add("Note D");
+
 
         ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, notes);
 
@@ -38,7 +42,8 @@ public class MainActivity extends AppCompatActivity {
         noteList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                toSecondActivity(view);
+                String noteString = notes.get(position);
+                toSecondActivity(view, noteString);
             }
         });
     }
